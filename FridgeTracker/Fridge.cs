@@ -4,35 +4,35 @@ using System.Text;
 
 namespace FridgeTracker
 {
-    class Fridge
+    static class Fridge
     {
         #region Properties
-        public string Name { get; set; }
-        public List<Item> ItemsList { get; set; }
+        public static string Name { get; set; }
+        public static List<Item> ItemsList { get; set; }
         #endregion
 
         #region Methods
-        public void AddItemToFridge(Item item)
+        public static void AddItemToFridge(Item item)
         {
             ItemsList.Add(item);
         }
 
-        public void RemoveItemFromFridge(Item item)
+        public static void RemoveItemFromFridge(Item item)
         {
             ItemsList.Remove(item);
         }
 
-        public void clearFridge()
+        public static void clearFridge()
         {
             ItemsList.Clear();
         }
 
-        public void showFridgeDetails()
+        public static void showFridgeDetails()
         {
             Console.WriteLine($"Fridge Name: \"{Name}\" Number of Items In Fridge: {ItemsList.Count}");
         }
 
-        public void showFridgeItems()
+        public static void showFridgeItems()
         {
             foreach (Item item in ItemsList)
             {
@@ -41,12 +41,6 @@ namespace FridgeTracker
         }
         #endregion
 
-        #region Constructor
-        public Fridge(string name)
-        {
-            Name = name;
-            ItemsList = new List<Item>();
-        }
-        #endregion
+       
     }
 }

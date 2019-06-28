@@ -6,7 +6,7 @@ namespace FridgeTracker
     {
         static void Main(string[] args)
         {
-            var myFridge = new Fridge("My Fridge");
+            Fridge.Name = "My Fridge";
 
             while (true)
             {
@@ -25,10 +25,10 @@ namespace FridgeTracker
                         Console.WriteLine("Thanks for visiting the app.");
                         return;
                     case "1":
-                        myFridge.showFridgeDetails();
+                        Fridge.showFridgeDetails();
                         break;
                     case "2":
-                        myFridge.showFridgeItems();
+                        Fridge.showFridgeItems();
                         break;
                     case "3":
                         Console.WriteLine("Please enter item name: ");
@@ -36,7 +36,7 @@ namespace FridgeTracker
                         Console.WriteLine("Please enter quantity");
                         string quantityString = Console.ReadLine();
                         int quantity = Convert.ToInt32(quantityString);
-                        myFridge.AddItemToFridge(new Item(name, quantity));
+                        Fridge.AddItemToFridge(new Item(name, quantity));
                         break;
                     case "4":
                         break;
