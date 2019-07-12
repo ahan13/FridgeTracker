@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 
 namespace FridgeTracker
 {
@@ -28,7 +30,19 @@ namespace FridgeTracker
                         Fridge.showFridgeDetails();
                         break;
                     case "2":
-                        Fridge.showFridgeItems();
+                        List<Item> fridgeItems = Fridge.showFridgeItems();
+                        if (fridgeItems.Count > 0)
+                        {
+                            foreach (Item item in fridgeItems)
+                            {
+                                Console.WriteLine($"Item Name:  \"{item.Name}\" Quantity: {item.Quantity}  Type: {item.Type} Date Added:  {item.DateAdded}");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Fridge is empty!");
+                        }
+                        
                         break;
                     case "3":
                         Console.WriteLine("Please enter item name: ");
@@ -36,9 +50,16 @@ namespace FridgeTracker
                         Console.WriteLine("Please enter quantity");
                         string quantityString = Console.ReadLine();
                         int quantity = Convert.ToInt32(quantityString);
-                        Fridge.AddItemToFridge(new Item(name, quantity));
+                        if(Fridge.AddItemToFridge(new Item(name, quantity)))
+                        {
+                            Console.WriteLine($"{name} has been added!");
+                        }
+
                         break;
                     case "4":
+                        Fridge.clearFridge();
+                        Console.WriteLine("Your Fridge has been cleared!");
+
                         break;
                     default: return;
 

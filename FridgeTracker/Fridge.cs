@@ -7,51 +7,49 @@ namespace FridgeTracker
     static class Fridge
     {
         #region Properties
+        public static FridgeContext db = new FridgeContext();
         public static string Name { get; set; }
         public static List<Item> ItemsList = new List<Item>();
         
         #endregion
 
         #region Methods
-        public static void AddItemToFridge(Item item)
+        public static bool AddItemToFridge(Item item)
         {
             ItemsList.Add(item);
-            Console.WriteLine($"{item.Name} has been added!");
+            db.Items.Add(item);
+            db.SaveChanges();
+            return true;
         }
 
-        public static void RemoveItemFromFridge(Item item)
+        public static bool RemoveItemFromFridge(Item item)
         {
-            
             ItemsList.Remove(item);
-            Console.WriteLine($"{item.Name} has been removed!");
+            db.Items.Remove(item);
+            db.SaveChanges();
+            return true;
 
         }
 
-        public static void clearFridge()
+        public static bool clearFridge()
         {
+            foreach (Item item in ItemsList){
+                db.Items.Remove(item);
+            }
             ItemsList.Clear();
-            Console.WriteLine("Your Fridge has been cleared!");
+            db.SaveChanges();
+            return true;
 
         }
 
-        public static void showFridgeDetails()
+        public static string showFridgeDetails()
         {
-            Console.WriteLine($"Fridge Name: \"{Name}\" Number of Items In Fridge: {ItemsList.Count}");
+            return $"Fridge Name: \"{Name}\" Number of Items In Fridge: {ItemsList.Count}";
         }
 
-        public static void showFridgeItems()
+        public static List<Item> showFridgeItems()
         {
-            if(ItemsList.Count != 0)
-            {
-                foreach (Item item in ItemsList)
-                {
-                    System.Console.WriteLine($"Item Name:  \"{item.Name}\" Quantity: {item.Quantity}  Type: {item.Type} Date Added:  {item.DateAdded}");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Your Fridge is empty!");
-            }
+            return ItemsList;
             
         }
         #endregion
