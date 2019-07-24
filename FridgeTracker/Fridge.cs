@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace FridgeTracker
@@ -9,14 +10,12 @@ namespace FridgeTracker
         #region Properties
         public static FridgeContext db = new FridgeContext();
         public static string Name { get; set; }
-        public static List<Item> ItemsList = new List<Item>();
         
         #endregion
 
         #region Methods
         public static bool AddItemToFridge(Item item)
         {
-            ItemsList.Add(item);
             db.Items.Add(item);
             db.SaveChanges();
             return true;
@@ -24,7 +23,6 @@ namespace FridgeTracker
 
         public static bool RemoveItemFromFridge(Item item)
         {
-            ItemsList.Remove(item);
             db.Items.Remove(item);
             db.SaveChanges();
             return true;
@@ -33,10 +31,10 @@ namespace FridgeTracker
 
         public static bool clearFridge()
         {
-            foreach (Item item in ItemsList){
+            foreach (Item item in db.Items){
                 db.Items.Remove(item);
             }
-            ItemsList.Clear();
+            
             db.SaveChanges();
             return true;
 
@@ -44,12 +42,14 @@ namespace FridgeTracker
 
         public static string showFridgeDetails()
         {
-            return $"Fridge Name: \"{Name}\" Number of Items In Fridge: {ItemsList.Count}";
+            var count = db.Items.Count().ToString();
+         
+            return $"Fridge Name: \"{Name}\" Number of Items In Fridge: {count}";
         }
 
-        public static List<Item> showFridgeItems()
+        public static IQueryable<Item> showFridgeItems()
         {
-            return ItemsList;
+            return db.Set<Item>();
             
         }
         #endregion

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace FridgeTracker
 {
@@ -27,11 +27,11 @@ namespace FridgeTracker
                         Console.WriteLine("Thanks for visiting the app.");
                         return;
                     case "1":
-                        Fridge.showFridgeDetails();
+                        Console.WriteLine(Fridge.showFridgeDetails());
                         break;
                     case "2":
-                        List<Item> fridgeItems = Fridge.showFridgeItems();
-                        if (fridgeItems.Count > 0)
+                        IQueryable<Item> fridgeItems = Fridge.showFridgeItems();
+                        if (fridgeItems.Count<Item>() > 0)
                         {
                             foreach (Item item in fridgeItems)
                             {
