@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FridgeTracker
 {
-    class FridgeContext : DbContext
+    public class FridgeContext : DbContext
     {
         public DbSet<Item> Items { get; set; }
 

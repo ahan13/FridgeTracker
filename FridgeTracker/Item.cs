@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace FridgeTracker
 {
-    enum ItemTypes
+    public enum ItemTypes
     {
         Meat,
         Seafood,
@@ -13,17 +14,22 @@ namespace FridgeTracker
         Fruit,
         Other
     }
-    class Item
+    public class Item
     {
         #region
         public int ItemNumber { get; set; }
         public string Name { get; set; }
         public int Quantity { get; set; }
-        public  DateTime DateAdded { get; set; }
+		
+		[Display(Name = "Date Added")]
+		public  DateTime DateAdded { get; set; }
         public ItemTypes Type { get; set; }
         #endregion
 
         #region Constructors
+		public Item(){
+			DateAdded = DateTime.Now;
+		}
         public Item(string name)
         {
             Name = name;
